@@ -34,7 +34,6 @@ Please layout in the style sheet of the theme.
 HTML output from Widget is done cached for a certain time.  
 If WP_DEBUG is TRUE, each time the cache is deleted.
 
-
 == Installation ==
 
 To install VA Term Latest Posts Widget:
