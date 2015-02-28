@@ -46,7 +46,7 @@ The description covers it all.
 == Screenshots ==
 
 1. ScreenShot 1.
-1. ScreenShot 2.
+2. ScreenShot 2.
 
 == Changelog ==
 

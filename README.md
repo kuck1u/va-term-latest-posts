@@ -46,8 +46,10 @@ The description covers it all.
 
 ## Screenshots
 
-1. ScreenShot 1.
-1. ScreenShot 2.
+* ScreenShot 1.  
+![ScreenShot](./screenshot-1.png)
+* ScreenShot 2.  
+![ScreenShot](./screenshot-2.png)
 
 ## Changelog
 
