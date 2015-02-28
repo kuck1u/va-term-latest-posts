@@ -4,13 +4,13 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 /*
-Plugin Name: VA Term Post List Widget
+Plugin Name: VA Term Latest Posts Widget
 Plugin URI: http://visualive.jp/
 Description: This plugin adds a widget to display the new post list belonging to the specified term.
 Author: KUCKLU
 Version: 1.0.0
 Author URI: http://visualive.jp/
-Text Domain: va-term-post-list
+Text Domain: va-term-latest-posts
 Domain Path: /langs
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -31,21 +31,21 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 /**
- * VA Term Post List.
+ * VA Term Latest Posts.
  *
  * @package    WordPress
- * @subpackage VA Term Post list
+ * @subpackage VA Term Latest Posts
  * @author     KUCKLU <kuck1u@visualive.jp>
  * @copyright  Copyright (c) 2015 KUCKLU, VisuAlive.
  * @license    GPLv2 http://opensource.org/licenses/gpl-2.0.php
  * @link       http://visualive.jp/
  */
-$va_term_post_list_widget_plugin_data = get_file_data( __FILE__, array( 'ver' => 'Version', 'langs' => 'Domain Path', 'mo' => 'Text Domain' ) );
-define( 'VA_TERM_POST_LIST_WIDGET_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'VA_TERM_POST_LIST_WIDGET_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-define( 'VA_TERM_POST_LIST_WIDGET_DOMAIN', dirname( plugin_basename( __FILE__ ) ) );
-define( 'VA_TERM_POST_LIST_WIDGET_VERSION', $va_term_post_list_widget_plugin_data['ver'] );
-define( 'VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN', $va_term_post_list_widget_plugin_data['mo'] );
+$va_term_latest_posts_widget_plugin_data = get_file_data( __FILE__, array( 'ver' => 'Version', 'langs' => 'Domain Path', 'mo' => 'Text Domain' ) );
+define( 'VA_TERM_LATEST_POSTS_WIDGET_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'VA_TERM_LATEST_POSTS_WIDGET_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+define( 'VA_TERM_LATEST_POSTS_WIDGET_DOMAIN', dirname( plugin_basename( __FILE__ ) ) );
+define( 'VA_TERM_LATEST_POSTS_WIDGET_VERSION', $va_term_latest_posts_widget_plugin_data['ver'] );
+define( 'VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN', $va_term_latest_posts_widget_plugin_data['mo'] );
 
 
 /**
@@ -53,20 +53,20 @@ define( 'VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN', $va_term_post_list_widget_plugin_
  * Calls 'widgets_init' action after all of the WordPress widgets have been
  * registered.
  */
-function vatplw_widgets_init() {
+function vatlpw_widgets_init() {
 	if ( !is_blog_installed() )
 		return;
 
-	register_widget( 'VA_TERM_POST_LIST_WIDGET' );
+	register_widget( 'VA_TERM_LATEST_POSTS_WIDGET' );
 }
-add_action( 'widgets_init', 'vatplw_widgets_init' );
+add_action( 'widgets_init', 'vatlpw_widgets_init' );
 
-class VA_TERM_POST_LIST_WIDGET extends WP_Widget {
+class VA_TERM_LATEST_POSTS_WIDGET extends WP_Widget {
 
 	function __construct() {
-		parent::__construct( VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN, __( 'VA Term Post List', VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN ), array(
-			'classname'   => VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN,
-			'description' => __( 'Display the new post list belonging to the specified term.', VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN ),
+		parent::__construct( VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN, __( 'VA Term Latest Posts', VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN ), array(
+			'classname'   => VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN,
+			'description' => __( 'Display the new post list belonging to the specified term.', VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN ),
 		) );
 
 		add_action( 'init', array( &$this, 'init') );
@@ -119,7 +119,7 @@ class VA_TERM_POST_LIST_WIDGET extends WP_Widget {
 				'post_type'      => $post_types,
 				'posts_per_page' => $posts_per_page,
 			);
-			$posts                 = get_posts( apply_filters( 'va_term_post_list_query_args', $query, $term_ids, $tax_query, $post_types, $posts_per_page ) );
+			$posts                 = get_posts( apply_filters( 'va_term_latest_posts_query_args', $query, $term_ids, $tax_query, $post_types, $posts_per_page ) );
 
 			$output = $before_widget;
 
@@ -170,28 +170,28 @@ class VA_TERM_POST_LIST_WIDGET extends WP_Widget {
 
 		extract( $instance );
 
-		printf( '<h5 style="%s">%s:</h5>', $h5_css, __( 'Title', VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN ) );
+		printf( '<h5 style="%s">%s:</h5>', $h5_css, __( 'Title', VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN ) );
 		printf( '<p><label for="%1$s"><input class="widefat" id="%1$s" type="text" name="%2$s" value="%3$s"></label></p>', $this->get_field_id( 'title' ), $this->get_field_name( 'title' ), wp_strip_all_tags( $title ) );
 
-		printf( '<h5 style="%s">%s:</h5>', $h5_css, __( 'Select terms', VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN ) );
+		printf( '<h5 style="%s">%s:</h5>', $h5_css, __( 'Select terms', VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN ) );
 		self::the_hierarchical_taxonomy_term_list( $term_ids );
 
-		printf( '<h5 style="%s">%s:</h5>', $h5_css, __( 'Thumbnail', VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN ) );
+		printf( '<h5 style="%s">%s:</h5>', $h5_css, __( 'Thumbnail', VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN ) );
 		?>
-		<p><label><input type="checkbox" name="<?php echo $this->get_field_name( 'show_thumbnail' ); ?>" value="1"<?php checked( (int)$show_thumbnail, 1 ); ?>> <?php _e( 'Show post thumbnail.', VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN ); ?></label></p>
+		<p><label><input type="checkbox" name="<?php echo $this->get_field_name( 'show_thumbnail' ); ?>" value="1"<?php checked( (int)$show_thumbnail, 1 ); ?>> <?php _e( 'Show post thumbnail.', VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN ); ?></label></p>
 		<?php
 		self::the_image_sizes_select( $thumbnail_size );
 
-		printf( '<h5 style="%s">%s:</h5>', $h5_css, __( 'Published datetime', VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN ) );
+		printf( '<h5 style="%s">%s:</h5>', $h5_css, __( 'Published datetime', VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN ) );
 		?>
-		<p><label><input type="checkbox" name="<?php echo $this->get_field_name( 'show_time' ); ?>" value="1"<?php checked( (int)$show_time, 1 ); ?>> <?php _e( 'Show published datetime.', VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN ); ?></label></p>
+		<p><label><input type="checkbox" name="<?php echo $this->get_field_name( 'show_time' ); ?>" value="1"<?php checked( (int)$show_time, 1 ); ?>> <?php _e( 'Show published datetime.', VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN ); ?></label></p>
 		<?php
 
-		printf( '<h5 style="%s">%s:</h5>', $h5_css, __( 'Number of the posts to display', VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN ) );
-		printf( '<p><label for="%1$s"><input id="%1$s" type="text" name="%2$s" value="%3$d" size="3">%4$s</label></p>', $this->get_field_id( 'posts_per_page' ), $this->get_field_name( 'posts_per_page' ), (int)$posts_per_page, __( ' post(s)', VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN ) );
+		printf( '<h5 style="%s">%s:</h5>', $h5_css, __( 'Number of the posts to display', VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN ) );
+		printf( '<p><label for="%1$s"><input id="%1$s" type="text" name="%2$s" value="%3$d" size="3">%4$s</label></p>', $this->get_field_id( 'posts_per_page' ), $this->get_field_name( 'posts_per_page' ), (int)$posts_per_page, __( ' post(s)', VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN ) );
 
-		printf( '<h5 style="%s">%s:</h5>', $h5_css, __( 'Effective time of the cache', VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN ) );
-		printf( '<p><label for="%1$s"><input id="%1$s" type="text" name="%2$s" value="%3$d" size="3">%4$s</label></p>', $this->get_field_id( 'cache_time' ), $this->get_field_name( 'cache_time' ), $cache_time, __( ' hour(s)', VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN ) );
+		printf( '<h5 style="%s">%s:</h5>', $h5_css, __( 'Effective time of the cache', VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN ) );
+		printf( '<p><label for="%1$s"><input id="%1$s" type="text" name="%2$s" value="%3$d" size="3">%4$s</label></p>', $this->get_field_id( 'cache_time' ), $this->get_field_name( 'cache_time' ), $cache_time, __( ' hour(s)', VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN ) );
 	}
 
 	function update( $new_instance, $old_instance ) {
@@ -290,7 +290,7 @@ class VA_TERM_POST_LIST_WIDGET extends WP_Widget {
 
 	private function the_image_sizes_select( $size = 'thumbnail' ) {
 		$sizes   = self::get_image_sizes();
-		$output  = sprintf( '<p><label for="%s">%s: </label>', $this->get_field_id( 'thumbnail_size' ), __( 'Image size ', VA_TERM_POST_LIST_WIDGET_TEXTDOMAIN ) );
+		$output  = sprintf( '<p><label for="%s">%s: </label>', $this->get_field_id( 'thumbnail_size' ), __( 'Image size ', VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN ) );
 		$output .= sprintf( '<select id="%s" name="%s">', $this->get_field_id( 'thumbnail_size' ), $this->get_field_name( 'thumbnail_size' ) );
 
 		if ( $sizes ) {
