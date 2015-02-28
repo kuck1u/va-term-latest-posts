@@ -31,6 +31,10 @@ Please layout in the style sheet of the theme.
 .post_list_items_meta_date {}
 ```
 
+** Hint **  
+HTML output from Widget is done cached for a certain time.  
+If WP_DEBUG is TRUE, each time the cache is deleted.
+
 ## Installation
 
 To install VA Simple Gist:
