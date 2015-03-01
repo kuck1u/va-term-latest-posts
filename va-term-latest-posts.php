@@ -97,10 +97,10 @@ class VA_TERM_LATEST_POSTS_WIDGET extends WP_Widget {
 
 		$output             = get_transient( $widget_id );
 
-//		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-//			delete_transient( $widget_id );
-//			$output = false;
-//		}
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			delete_transient( $widget_id );
+			$output = false;
+		}
 
 		if ( !$output ) {
 			foreach ( $term_ids as $taxonomy => $ids ) {
