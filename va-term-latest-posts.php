@@ -8,7 +8,7 @@ Plugin Name: VA Term Latest Posts Widget
 Plugin URI: http://visualive.jp/
 Description: This plugin adds a widget to display the new post list belonging to the specified term.
 Author: KUCKLU
-Version: 1.0.0
+Version: 1.0.1
 Author URI: http://visualive.jp/
 Text Domain: va-term-latest-posts
 Domain Path: /langs
