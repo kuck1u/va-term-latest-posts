@@ -68,19 +68,6 @@ class VA_TERM_LATEST_POSTS_WIDGET extends WP_Widget {
 			'classname'   => VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN,
 			'description' => __( 'Display the new post list belonging to the specified term.', VA_TERM_LATEST_POSTS_WIDGET_TEXTDOMAIN ),
 		) );
-
-		add_action( 'init', array( &$this, 'init') );
-	}
-
-	function init() {
-		global $allowedposttags;
-
-		$allowedposttags['time'] = array(
-			'datetime' => true,
-			'id'       => true,
-			'class'    => true,
-			'style'    => true
-		);
 	}
 
 	function widget( $args, $instance ) {
